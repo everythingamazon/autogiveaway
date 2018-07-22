@@ -19,8 +19,9 @@ fileHandler.setFormatter(formater)
 consoleHandler.setFormatter(formater)
 
 logger.info("Welcome")
-
-driver = webdriver.Chrome()
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument("--mute-audio")
+driver = webdriver.Chrome(chrome_options=chrome_options)
 driver.get("https://www.amazon.com")
 signLine = driver.find_element_by_id("nav-link-accountList")
 signLine.click()
@@ -45,10 +46,11 @@ print("Thanks. Let me take it from here. Grab a beer and just watch ...")
 # elem_pass.send_keys("mypassword")
 # elem_pass.send_keys(Keys.RETURN)
 
+start_page = 1
 
-driver.get("https://www.amazon.com/ga/giveaways?pageId=1")
+driver.get("https://www.amazon.com/ga/giveaways?pageId=" + str(start_page))
 
-for j in range(1,132):
+for j in range(start_page,132):
     for i in range(1,25):
         no_cont = False
         try:
